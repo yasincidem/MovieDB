@@ -11,6 +11,10 @@ object Dependencies {
         val material3 = "androidx.compose.material3:material3:1.1.0-alpha03"
     }
 
+    object Util {
+        val splashscreen = "androidx.core:core-splashscreen:1.0.0"
+    }
+
     object Test {
         val jUnit = "junit:junit:4.13.2"
     }

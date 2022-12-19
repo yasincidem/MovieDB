@@ -56,6 +56,8 @@ dependencies {
     implementation(Dependencies.Compose.uiToolingPreview)
     implementation(Dependencies.Compose.material3)
 
+    implementation(Dependencies.Util.splashscreen)
+
     testImplementation(Dependencies.Test.jUnit)
 
     androidTestImplementation(Dependencies.AndroidTest.jUnitExt)
