@@ -25,10 +25,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -46,6 +48,7 @@ import com.yasincidem.moviedb.feature.trending.domain.model.Movie
 import com.yasincidem.moviedb.feature.trending.domain.model.Person
 import com.yasincidem.moviedb.feature.trending.domain.model.TV
 import com.yasincidem.moviedb.feature.trending.ui.TrendingViewModel
+import com.yasincidem.moviedb.perf.rememberMetricsStateHolder
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,6 +66,17 @@ fun MainScreen(
     val isGoUpButtonVisible by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex > 0
+        }
+    }
+    val metricsStateHolder = rememberMetricsStateHolder()
+
+    LaunchedEffect(metricsStateHolder, listState) {
+        snapshotFlow { listState.isScrollInProgress }.collect { isScrolling ->
+            if (isScrolling) {
+                metricsStateHolder.state?.putState("LazyList", "Scrolling")
+            } else {
+                metricsStateHolder.state?.removeState("LazyList")
+            }
         }
     }
 
