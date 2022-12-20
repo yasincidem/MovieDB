@@ -1,6 +1,9 @@
 package com.yasincidem.moviedb.feature.trending.domain.model
 
-enum class MediaType {
+import androidx.annotation.Keep
+
+@Keep
+enum class MediaRequestType {
     all,
     movie,
     tv,
