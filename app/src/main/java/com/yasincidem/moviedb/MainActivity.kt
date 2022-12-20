@@ -13,6 +13,7 @@ import androidx.metrics.performance.JankStats
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.yasincidem.moviedb.ui.theme.MovieDBTheme
 import com.yasincidem.moviedb.feature.main.ui.NavGraphs
+import com.yasincidem.moviedb.util.disableMultiTouch
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieDBTheme {
                 DestinationsNavHost(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().disableMultiTouch(),
                     navGraph = NavGraphs.root
                 )
             }
