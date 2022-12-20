@@ -11,14 +11,25 @@ object Dependencies {
         val material3 = "androidx.compose.material3:material3:1.1.0-alpha03"
     }
 
+    object DI {
+        val hiltAndroid = "com.google.dagger:hilt-android:2.44"
+        val hiltCompilerKapt = "com.google.dagger:hilt-compiler:2.44"
+        val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
+    }
+
     object Navigation {
         val destinationCore = "io.github.raamcosta.compose-destinations:core:1.7.27-beta"
-        val destinationAnimCore = "io.github.raamcosta.compose-destinations:animations-core:1.7.27-beta"
+        val destinationAnimCore =
+            "io.github.raamcosta.compose-destinations:animations-core:1.7.27-beta"
         val destinationKSP = "io.github.raamcosta.compose-destinations:ksp:1.7.27-beta"
     }
 
     object Util {
         val splashscreen = "androidx.core:core-splashscreen:1.0.0"
+    }
+
+    object Performance {
+        val jankstats = "androidx.metrics:metrics-performance:1.0.0-alpha03"
     }
 
     object Test {

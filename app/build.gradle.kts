@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.google.devtools.ksp")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -69,6 +71,12 @@ dependencies {
     implementation(Dependencies.Navigation.destinationCore)
     implementation(Dependencies.Navigation.destinationAnimCore)
     ksp(Dependencies.Navigation.destinationKSP)
+
+    implementation(Dependencies.DI.hiltAndroid)
+    kapt(Dependencies.DI.hiltCompilerKapt)
+    implementation(Dependencies.DI.hiltNavigationCompose)
+
+    implementation(Dependencies.Performance.jankstats)
 
     testImplementation(Dependencies.Test.jUnit)
 
