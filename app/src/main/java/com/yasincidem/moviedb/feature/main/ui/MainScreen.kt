@@ -49,6 +49,7 @@ import com.yasincidem.moviedb.feature.trending.domain.model.Person
 import com.yasincidem.moviedb.feature.trending.domain.model.TV
 import com.yasincidem.moviedb.feature.trending.ui.TrendingViewModel
 import com.yasincidem.moviedb.perf.rememberMetricsStateHolder
+import com.yasincidem.moviedb.util.FadingBox
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -114,6 +115,7 @@ fun MainScreen(
             }
         }
     ) { padding ->
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -128,22 +130,24 @@ fun MainScreen(
         ) {
             items(trendingList, key = { item -> item.id }) { media: IMedia? ->
                 media ?: return@items
-                Card(
-                    modifier = Modifier,
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    when (media) {
-                        is Movie -> {
-                            MovieCard(media)
-                        }
+                FadingBox {
+                    Card(
+                        modifier = Modifier,
+                        onClick = { /*TODO*/ },
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        when (media) {
+                            is Movie -> {
+                                MovieCard(media)
+                            }
 
-                        is TV -> {
-                            TvCard(media)
-                        }
+                            is TV -> {
+                                TvCard(media)
+                            }
 
-                        is Person -> {
-                            Text(text = "person::${media.name}")
+                            is Person -> {
+                                Text(text = "person::${media.name}")
+                            }
                         }
                     }
                 }
