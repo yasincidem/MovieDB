@@ -11,6 +11,12 @@ object Dependencies {
         val material3 = "androidx.compose.material3:material3:1.1.0-alpha03"
     }
 
+    object Navigation {
+        val destinationCore = "io.github.raamcosta.compose-destinations:core:1.7.27-beta"
+        val destinationAnimCore = "io.github.raamcosta.compose-destinations:animations-core:1.7.27-beta"
+        val destinationKSP = "io.github.raamcosta.compose-destinations:ksp:1.7.27-beta"
+    }
+
     object Util {
         val splashscreen = "androidx.core:core-splashscreen:1.0.0"
     }

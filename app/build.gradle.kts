@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -45,6 +46,14 @@ android {
     packagingOptions {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
+
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -55,8 +64,11 @@ dependencies {
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.uiToolingPreview)
     implementation(Dependencies.Compose.material3)
-
     implementation(Dependencies.Util.splashscreen)
+
+    implementation(Dependencies.Navigation.destinationCore)
+    implementation(Dependencies.Navigation.destinationAnimCore)
+    ksp(Dependencies.Navigation.destinationKSP)
 
     testImplementation(Dependencies.Test.jUnit)
 
