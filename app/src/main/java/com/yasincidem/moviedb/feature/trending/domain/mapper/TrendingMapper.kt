@@ -26,12 +26,12 @@ class TrendingMapper @Inject constructor() {
     fun mapToMovie(dto: TrendingItemDto) = Movie(
         id = dto.id.orZero(),
         adult = dto.adult.orFalse(),
-        backdrop_path = dto.backdrop_path.orEmpty(),
+        backdrop_path = BACKDROP_BASE_PATH + dto.backdrop_path.orEmpty(),
         title = dto.title.orEmpty(),
         original_language = dto.original_language.orEmpty(),
         original_name = dto.original_name.orEmpty(),
         overview = dto.overview.orEmpty(),
-        poster_path = IMAGE_BASE_PATH +  dto.poster_path.orEmpty(),
+        poster_path = POSTER_BASE_PATH +  dto.poster_path.orEmpty(),
         genre_ids = listOf(),
         popularity = dto.popularity.orZero(),
         first_air_date = dto.first_air_date.orEmpty(),
@@ -44,12 +44,12 @@ class TrendingMapper @Inject constructor() {
     fun mapToTV(dto: TrendingItemDto) = TV(
         id = dto.id.orZero(),
         adult = dto.adult.orFalse(),
-        backdrop_path = dto.backdrop_path.orEmpty(),
+        backdrop_path = BACKDROP_BASE_PATH + dto.backdrop_path.orEmpty(),
         name = dto.name.orEmpty(),
         original_language = dto.original_language.orEmpty(),
         original_name = dto.original_name.orEmpty(),
         overview = dto.overview.orEmpty(),
-        poster_path = IMAGE_BASE_PATH + dto.poster_path.orEmpty(),
+        poster_path = POSTER_BASE_PATH + dto.poster_path.orEmpty(),
         genre_ids = listOf(),
         popularity = dto.popularity.orZero(),
         first_air_date = dto.first_air_date.orEmpty(),
@@ -62,12 +62,12 @@ class TrendingMapper @Inject constructor() {
     fun mapToPerson(dto: TrendingItemDto) = Person(
         id = dto.id.orZero(),
         adult = dto.adult.orFalse(),
-        backdrop_path = dto.backdrop_path.orEmpty(),
+        backdrop_path = BACKDROP_BASE_PATH + dto.backdrop_path.orEmpty(),
         name = dto.name.orEmpty(),
         original_language = dto.original_language.orEmpty(),
         original_name = dto.original_name.orEmpty(),
         overview = dto.overview.orEmpty(),
-        profile_path = IMAGE_BASE_PATH + dto.profile_path.orEmpty(),
+        profile_path = POSTER_BASE_PATH + dto.profile_path.orEmpty(),
         genre_ids = listOf(),
         popularity = dto.popularity.orZero(),
         first_air_date = dto.first_air_date.orEmpty(),
@@ -79,6 +79,7 @@ class TrendingMapper @Inject constructor() {
     )
 
     companion object {
-        private const val IMAGE_BASE_PATH = "https://image.tmdb.org/t/p/w500/"
+        private const val POSTER_BASE_PATH = "https://image.tmdb.org/t/p/w500/"
+        private const val BACKDROP_BASE_PATH = "https://image.tmdb.org/t/p/w500/"
     }
 }

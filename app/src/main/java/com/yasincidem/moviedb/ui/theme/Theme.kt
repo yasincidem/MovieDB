@@ -46,7 +46,6 @@ fun MovieDBTheme(
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val systemUiController = rememberSystemUiController()
 
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -56,17 +55,6 @@ fun MovieDBTheme(
 
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
-    }
-
-    DisposableEffect(systemUiController) {
-        // Update all of the system bar colors to be transparent, and use
-        // dark icons if we're in light theme
-        systemUiController.setStatusBarColor(
-            color = Color.Transparent,
-            darkIcons = true
-        )
-
-        onDispose {}
     }
 
     MaterialTheme(

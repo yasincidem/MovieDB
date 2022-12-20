@@ -40,6 +40,7 @@ object Dependencies {
 
     object Image {
         const val coil = "io.coil-kt:coil-compose:2.2.2"
+        const val palette = "androidx.palette:palette-ktx:1.0.0"
     }
 
     object Util {

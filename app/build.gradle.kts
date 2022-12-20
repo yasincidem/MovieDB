@@ -72,6 +72,7 @@ dependencies {
 
     // Image
     implementation(Dependencies.Image.coil)
+    implementation(Dependencies.Image.palette)
 
     // Pagination
     implementation(Dependencies.Pagination.core)

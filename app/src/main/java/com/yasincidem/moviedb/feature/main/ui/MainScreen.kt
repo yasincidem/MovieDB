@@ -26,16 +26,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -70,6 +74,7 @@ fun MainScreen(
         }
     }
     val metricsStateHolder = rememberMetricsStateHolder()
+    val systemUiController = rememberSystemUiController()
 
     LaunchedEffect(metricsStateHolder, listState) {
         snapshotFlow { listState.isScrollInProgress }.collect { isScrolling ->
@@ -79,6 +84,13 @@ fun MainScreen(
                 metricsStateHolder.state?.removeState("LazyList")
             }
         }
+    }
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.Transparent,
+            darkIcons = true
+        )
     }
 
     Scaffold(
@@ -136,15 +148,31 @@ fun MainScreen(
                         onClick = {
                             when (media) {
                                 is Movie -> {
-                                    navigator.navigate(MovieDetailScreenDestination(media.id))
+                                    navigator.navigate(
+                                        MovieDetailScreenDestination(
+                                            media.id,
+                                            media.poster_path,
+                                            media.backdrop_path
+                                        )
+                                    )
                                 }
 
                                 is Person -> {
-                                    navigator.navigate(PersonDetailScreenDestination(media.id))
+
+                                    navigator.navigate(
+                                        PersonDetailScreenDestination(
+                                            media.id
+                                        )
+                                    )
                                 }
 
                                 is TV -> {
-                                    navigator.navigate(TvDetailScreenDestination(media.id))
+                                    navigator.navigate(
+                                        TvDetailScreenDestination(
+                                            media.id, media.poster_path,
+                                            media.backdrop_path
+                                        )
+                                    )
                                 }
                             }
                         },
