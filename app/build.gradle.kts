@@ -73,6 +73,9 @@ dependencies {
     implementation(Dependencies.Pagination.core)
     implementation(Dependencies.Pagination.compose)
 
+    // Accompanist
+    implementation(Dependencies.Accompanist.systemUiContoller)
+
     // Navigation
     implementation(Dependencies.Navigation.destinationCore)
     implementation(Dependencies.Navigation.destinationAnimCore)
