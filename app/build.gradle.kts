@@ -60,6 +60,7 @@ android {
 
 dependencies {
 
+    // UI
     implementation(Dependencies.Core.ktx)
     implementation(Dependencies.Core.lifecyle)
     implementation(Dependencies.Compose.activity)
@@ -68,22 +69,38 @@ dependencies {
     implementation(Dependencies.Compose.material3)
     implementation(Dependencies.Util.splashscreen)
 
+    // Pagination
+    implementation(Dependencies.Pagination.core)
+    implementation(Dependencies.Pagination.compose)
+
+    // Navigation
     implementation(Dependencies.Navigation.destinationCore)
     implementation(Dependencies.Navigation.destinationAnimCore)
     ksp(Dependencies.Navigation.destinationKSP)
 
+    // DI
     implementation(Dependencies.DI.hiltAndroid)
     kapt(Dependencies.DI.hiltCompilerKapt)
     implementation(Dependencies.DI.hiltNavigationCompose)
 
+    // Network
+    implementation(Dependencies.Network.retrofit)
+    implementation(Dependencies.Network.retrofitMoshi)
+
+    // Performance
     implementation(Dependencies.Performance.jankstats)
 
+    // Test
     testImplementation(Dependencies.Test.jUnit)
-
     androidTestImplementation(Dependencies.AndroidTest.jUnitExt)
     androidTestImplementation(Dependencies.AndroidTest.espresso)
     androidTestImplementation(Dependencies.AndroidTest.compose)
 
+    // Debug only
     debugImplementation(Dependencies.Debug.composeUiTooling)
     debugImplementation(Dependencies.Debug.composeUiTestManifest)
+    debugImplementation(Dependencies.Debug.chucker)
+
+    // Release only
+    releaseImplementation(Dependencies.Release.chucker)
 }
