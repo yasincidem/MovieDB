@@ -1,6 +1,7 @@
 package com.yasincidem.moviedb.feature.trending.data.remote.model
 
 import androidx.annotation.Keep
+import com.yasincidem.moviedb.core.model.MediaType
 
 @Keep
 data class TrendingItemDto(
@@ -14,7 +15,7 @@ data class TrendingItemDto(
     val overview: String?,
     val poster_path: String?,
     val profile_path: String?,
-    val media_type: MediaTypeDto,
+    val media_type: MediaType,
     val genre_ids: List<Int?>?,
     val popularity: Double?,
     val first_air_date: String?,

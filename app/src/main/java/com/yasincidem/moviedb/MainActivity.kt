@@ -12,7 +12,7 @@ import androidx.core.view.WindowCompat
 import androidx.metrics.performance.JankStats
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.yasincidem.moviedb.ui.theme.MovieDBTheme
-import com.yasincidem.moviedb.feature.main.ui.NavGraphs
+import com.yasincidem.moviedb.feature.NavGraphs
 import com.yasincidem.moviedb.util.disableMultiTouch
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

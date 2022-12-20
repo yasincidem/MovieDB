@@ -32,22 +32,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.yasincidem.moviedb.feature.destinations.MovieDetailScreenDestination
+import com.yasincidem.moviedb.feature.destinations.PersonDetailScreenDestination
+import com.yasincidem.moviedb.feature.destinations.TvDetailScreenDestination
 import com.yasincidem.moviedb.feature.trending.domain.model.IMedia
 import com.yasincidem.moviedb.feature.trending.domain.model.Movie
 import com.yasincidem.moviedb.feature.trending.domain.model.Person
 import com.yasincidem.moviedb.feature.trending.domain.model.TV
-import com.yasincidem.moviedb.feature.trending.ui.TrendingViewModel
+import com.yasincidem.moviedb.feature.trending.ui.MovieCard
+import com.yasincidem.moviedb.feature.trending.ui.TvCard
 import com.yasincidem.moviedb.perf.rememberMetricsStateHolder
 import com.yasincidem.moviedb.util.FadingBox
 import kotlinx.coroutines.launch
@@ -58,7 +58,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     navigator: DestinationsNavigator,
-    viewmodel: TrendingViewModel = hiltViewModel()
+    viewmodel: MainViewModel = hiltViewModel()
 ) {
 
     val trendingList = viewmodel.trendingList.collectAsLazyPagingItems()
@@ -133,7 +133,21 @@ fun MainScreen(
                 FadingBox {
                     Card(
                         modifier = Modifier,
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            when (media) {
+                                is Movie -> {
+                                    navigator.navigate(MovieDetailScreenDestination(media.id))
+                                }
+
+                                is Person -> {
+                                    navigator.navigate(PersonDetailScreenDestination(media.id))
+                                }
+
+                                is TV -> {
+                                    navigator.navigate(TvDetailScreenDestination(media.id))
+                                }
+                            }
+                        },
                         shape = RoundedCornerShape(16.dp)
                     ) {
                         when (media) {
@@ -153,43 +167,5 @@ fun MainScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun MovieCard(
-    movie: Movie
-) {
-    Card(
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.poster_path)
-                .crossfade(true)
-                .build(),
-            contentDescription = movie.title,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth(0.3f)
-        )
-    }
-}
-
-@Composable
-fun TvCard(
-    tv: TV
-) {
-    Card(
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(tv.poster_path)
-                .crossfade(true)
-                .build(),
-            contentDescription = tv.name,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth(0.3f)
-        )
     }
 }

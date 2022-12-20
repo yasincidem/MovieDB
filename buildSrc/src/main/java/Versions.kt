@@ -1,5 +1,5 @@
 object Versions {
     object Compose {
-        const val core = "1.3.2"
+        const val core = "1.3.1"
     }
 }

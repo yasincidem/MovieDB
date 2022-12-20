@@ -3,7 +3,7 @@ package com.yasincidem.moviedb.feature.trending.domain.mapper
 import androidx.annotation.VisibleForTesting
 import com.yasincidem.moviedb.extensions.orFalse
 import com.yasincidem.moviedb.extensions.orZero
-import com.yasincidem.moviedb.feature.trending.data.remote.model.MediaTypeDto
+import com.yasincidem.moviedb.core.model.MediaType
 import com.yasincidem.moviedb.feature.trending.data.remote.model.TrendingItemDto
 import com.yasincidem.moviedb.feature.trending.domain.model.IMedia
 import com.yasincidem.moviedb.feature.trending.domain.model.Movie
@@ -17,9 +17,9 @@ class TrendingMapper @Inject constructor() {
 
     @VisibleForTesting
     fun mapToMedia(dto: TrendingItemDto): IMedia = when (dto.media_type) {
-        MediaTypeDto.movie -> mapToMovie(dto)
-        MediaTypeDto.tv -> mapToTV(dto)
-        MediaTypeDto.person -> mapToPerson(dto)
+        MediaType.movie -> mapToMovie(dto)
+        MediaType.tv -> mapToTV(dto)
+        MediaType.person -> mapToPerson(dto)
     }
 
     @VisibleForTesting

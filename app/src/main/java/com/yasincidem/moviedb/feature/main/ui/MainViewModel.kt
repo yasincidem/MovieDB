@@ -1,4 +1,4 @@
-package com.yasincidem.moviedb.feature.trending.ui
+package com.yasincidem.moviedb.feature.main.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,11 +14,12 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
-class TrendingViewModel @Inject constructor(
-    fetchTrendingUseCase: FetchTrendingUseCase
+class MainViewModel @Inject constructor(
+    private val fetchTrendingUseCase: FetchTrendingUseCase
 ) : ViewModel() {
 
     private val trendingConfig = TrendingConfig(MediaRequestType.all, TimeWindow.week)
 
-    val trendingList: Flow<PagingData<IMedia>> = fetchTrendingUseCase.fetchTrending(trendingConfig).cachedIn(viewModelScope)
+    val trendingList: Flow<PagingData<IMedia>> =
+        fetchTrendingUseCase.fetchTrending(trendingConfig).cachedIn(viewModelScope)
 }
