@@ -36,7 +36,7 @@ object ApiModule {
 
     private fun addApiKeyToRequests(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-        val originalHttpUrl = chain.request().url()
+        val originalHttpUrl = chain.request().url
         val newUrl = originalHttpUrl.newBuilder().addQueryParameter("api_key", API_KEY).build()
         request.url(newUrl)
         return chain.proceed(request.build())

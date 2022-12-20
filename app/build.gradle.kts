@@ -69,6 +69,9 @@ dependencies {
     implementation(Dependencies.Compose.material3)
     implementation(Dependencies.Util.splashscreen)
 
+    // Image
+    implementation(Dependencies.Image.coil)
+
     // Pagination
     implementation(Dependencies.Pagination.core)
     implementation(Dependencies.Pagination.compose)

@@ -38,6 +38,10 @@ object Dependencies {
         const val compose = "androidx.paging:paging-compose:1.0.0-alpha17"
     }
 
+    object Image {
+        const val coil = "io.coil-kt:coil-compose:2.2.2"
+    }
+
     object Util {
         const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
     }
