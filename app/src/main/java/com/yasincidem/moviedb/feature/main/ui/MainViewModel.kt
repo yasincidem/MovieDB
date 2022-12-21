@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val fetchTrendingUseCase: FetchTrendingUseCase
+    fetchTrendingUseCase: FetchTrendingUseCase
 ) : ViewModel() {
 
     private val trendingConfig = TrendingConfig(MediaRequestType.all, TimeWindow.week)

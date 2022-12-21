@@ -6,13 +6,15 @@ import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.rounded.Search
@@ -62,11 +64,11 @@ fun MovieDetailScreen(
     val systemUiController = rememberSystemUiController()
     var nonSafePalette by remember { mutableStateOf<Palette?>(null) }
     val animatedColor = remember { Animatable(Color.White) }
-    val movieDetail by viewModel.movieDetail.collectAsStateWithLifecycle()
+    val movieDetailViewState by viewModel.movieDetailViewState.collectAsStateWithLifecycle()
 
     val browserIntent = remember {
         derivedStateOf {
-            Intent(Intent.ACTION_VIEW, Uri.parse(movieDetail.homepage))
+            Intent(Intent.ACTION_VIEW, Uri.parse(movieDetailViewState.data.homepage))
         }
     }
 
@@ -76,7 +78,7 @@ fun MovieDetailScreen(
                 action = Intent.ACTION_SEND
                 putExtra(
                     Intent.EXTRA_TEXT,
-                    "Here is a movie recommendation: ${movieDetail.title} \n\n ${movieDetail.homepage}"
+                    movieDetailViewState.getShareText()
                 )
                 type = "text/plain"
             }, null)
@@ -101,97 +103,112 @@ fun MovieDetailScreen(
         onDispose {}
     }
 
-    Surface(
-        color = animatedColor.value
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+    Surface(color = animatedColor.value) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            item {
-                Box {
 
-                    AsyncImage(
-                        model = backdrop_path,
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(300.dp)
-                            .fillMaxWidth()
+            Box {
+                AsyncImage(
+                    model = backdrop_path,
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(300.dp)
+                        .fillMaxWidth()
+                )
+
+                FilledIconButton(
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .statusBarsPadding()
+                        .padding(8.dp),
+                    onClick = { navigator.popBackStack() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Navigate Up"
                     )
+                }
 
-                    FilledIconButton(
-                        modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .statusBarsPadding()
-                            .padding(8.dp),
-                        onClick = { navigator.popBackStack() }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Navigate Up"
-                        )
+
+                Row(
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                ) {
+                    if (movieDetailViewState.isOpenInBrowserButtonVisible()) {
+                        FilledIconButton(
+                            modifier = Modifier
+                                .padding(8.dp),
+                            onClick = {
+                                context.startActivity(browserIntent.value)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Search,
+                                contentDescription = movieDetailViewState.getOpenInBrowserButtonContentDescription()
+                            )
+                        }
                     }
 
-                    if (movieDetail.homepage.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier.align(Alignment.BottomEnd)
+                    if (movieDetailViewState.isShareButtonVisible()) {
+                        FilledIconButton(
+                            modifier = Modifier
+                                .padding(8.dp),
+                            onClick = {
+                                context.startActivity(shareIntent.value)
+                            }
                         ) {
-                            FilledIconButton(
-                                modifier = Modifier
-                                    .padding(8.dp),
-                                onClick = {
-                                    context.startActivity(browserIntent.value)
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Search,
-                                    contentDescription = "Open ${movieDetail.title} in browser"
-                                )
-                            }
-
-                            FilledIconButton(
-                                modifier = Modifier
-                                    .padding(8.dp),
-                                onClick = {
-                                    context.startActivity(shareIntent.value)
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Share,
-                                    contentDescription = "Share ${movieDetail.title}"
-                                )
-                            }
+                            Icon(
+                                imageVector = Icons.Rounded.Share,
+                                contentDescription = movieDetailViewState.getShareButtonContentDescription()
+                            )
                         }
                     }
                 }
             }
 
-            item {
-                FadingBox(
-                    enterDuration = 1000
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        text = movieDetail.title,
-                        color = nonSafePalette?.darkMutedSwatch.asComposeColor(),
-                        style = MaterialTheme.typography.displaySmall
-                    )
-                }
-            }
-
-            item {
+            FadingBox(
+                enterDuration = 1000
+            ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    text = movieDetail.overview,
-                    color = nonSafePalette?.darkVibrantSwatch.asComposeColor(),
-                    style = MaterialTheme.typography.bodyMedium
+                    text = movieDetailViewState.data.title,
+                    color = nonSafePalette?.darkMutedSwatch.asComposeColor(),
+                    style = MaterialTheme.typography.displaySmall
                 )
             }
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                text = movieDetailViewState.data.overview,
+                color = nonSafePalette?.darkVibrantSwatch.asComposeColor(),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                text = movieDetailViewState.data.runtime,
+                color = nonSafePalette?.darkVibrantSwatch.asComposeColor(),
+                style = MaterialTheme.typography.titleLarge
+            )
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                text = movieDetailViewState.getVoteText(),
+                color = nonSafePalette?.darkVibrantSwatch.asComposeColor(),
+                style = MaterialTheme.typography.titleLarge
+            )
         }
     }
 }

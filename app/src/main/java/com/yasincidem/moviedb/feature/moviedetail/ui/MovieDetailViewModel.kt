@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yasincidem.moviedb.extensions.onEachResource
 import com.yasincidem.moviedb.extensions.safeLaunchIn
-import com.yasincidem.moviedb.feature.moviedetail.domain.model.MOVIE_DETAIL_DEFAULT
 import com.yasincidem.moviedb.feature.moviedetail.domain.usecase.FetchMovieDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,13 +16,13 @@ class MovieDetailViewModel @Inject constructor(
     private val fetchMovieDetailUseCase: FetchMovieDetailUseCase
 ) : ViewModel() {
 
-    private val _movieDetail = MutableStateFlow(MOVIE_DETAIL_DEFAULT)
-    val movieDetail = _movieDetail.asStateFlow()
+    private val _movieDetailViewState = MutableStateFlow(MovieDetailViewState())
+    val movieDetailViewState = _movieDetailViewState.asStateFlow()
 
     fun fetchMovieDetail(movieId: Long) {
         fetchMovieDetailUseCase.fetchMovieDetail(movieId).onEachResource(
             onSuccess = { movieDetail ->
-                _movieDetail.update { movieDetail }
+                _movieDetailViewState.update { MovieDetailViewState(movieDetail) }
             }
         ).safeLaunchIn(viewModelScope)
     }
