@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -116,6 +117,7 @@ fun MainScreen(
                 exit = fadeOut(),
             ) {
                 SmallFloatingActionButton(
+                    modifier = Modifier.systemBarsPadding(),
                     onClick = {
                         scope.launch {
                             listState.animateScrollToItem(0)
