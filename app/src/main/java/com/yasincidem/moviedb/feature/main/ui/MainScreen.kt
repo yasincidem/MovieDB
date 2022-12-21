@@ -24,7 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -46,6 +45,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.yasincidem.moviedb.feature.destinations.MovieDetailScreenDestination
+import com.yasincidem.moviedb.feature.destinations.MovieSearchScreenDestination
+import com.yasincidem.moviedb.feature.search.ui.DisabledSearchBar
 import com.yasincidem.moviedb.feature.trending.domain.model.IMedia
 import com.yasincidem.moviedb.feature.trending.domain.model.Movie
 import com.yasincidem.moviedb.feature.trending.domain.model.Person
@@ -103,7 +104,11 @@ fun MainScreen(
             ) {
                 TopAppBar(
                     title = {
-                        Text(text = "\uD83C\uDF7F Welcome")
+                        DisabledSearchBar(
+                            onClicked = {
+                                navigator.navigate(MovieSearchScreenDestination())
+                            }
+                        )
                     },
                     windowInsets = WindowInsets.statusBars,
                 )
@@ -134,13 +139,13 @@ fun MainScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 32.dp),
+                .padding(top = 16.dp),
             contentPadding = PaddingValues(
                 start = 16.dp,
                 end = 16.dp,
                 top = padding.calculateTopPadding()
             ),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             state = listState
         ) {
             items(trendingList, key = { item -> item.id }) { media: IMedia? ->
