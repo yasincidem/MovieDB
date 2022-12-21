@@ -1,5 +1,6 @@
 package com.yasincidem.moviedb.feature.main.ui
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -34,6 +35,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -43,8 +45,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.yasincidem.moviedb.feature.destinations.MovieDetailScreenDestination
-import com.yasincidem.moviedb.feature.destinations.PersonDetailScreenDestination
-import com.yasincidem.moviedb.feature.destinations.TvDetailScreenDestination
 import com.yasincidem.moviedb.feature.trending.domain.model.IMedia
 import com.yasincidem.moviedb.feature.trending.domain.model.Movie
 import com.yasincidem.moviedb.feature.trending.domain.model.Person
@@ -74,6 +74,7 @@ fun MainScreen(
     }
     val metricsStateHolder = rememberMetricsStateHolder()
     val systemUiController = rememberSystemUiController()
+    val context = LocalContext.current
 
     LaunchedEffect(metricsStateHolder, listState) {
         snapshotFlow { listState.isScrollInProgress }.collect { isScrolling ->
@@ -133,8 +134,8 @@ fun MainScreen(
                 .fillMaxWidth()
                 .padding(top = 32.dp),
             contentPadding = PaddingValues(
-                start = 24.dp,
-                end = 24.dp,
+                start = 16.dp,
+                end = 16.dp,
                 top = padding.calculateTopPadding()
             ),
             verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -157,21 +158,13 @@ fun MainScreen(
                                     )
                                 }
 
-                                is Person -> {
-                                    navigator.navigate(
-                                        PersonDetailScreenDestination(
-                                            media.id
-                                        )
-                                    )
-                                }
-
-                                is TV -> {
-                                    navigator.navigate(
-                                        TvDetailScreenDestination(
-                                            media.id, media.poster_path,
-                                            media.backdrop_path
-                                        )
-                                    )
+                                is Person, is TV -> {
+                                    // todo(Implement Later)
+                                    Toast.makeText(
+                                        context,
+                                        "Person and TV detail pages does not exist yet",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                             }
                         },
@@ -187,7 +180,7 @@ fun MainScreen(
                             }
 
                             is Person -> {
-                                Text(text = "person::${media.name}")
+                                // todo(Implement Later)
                             }
                         }
                     }
