@@ -1,8 +1,6 @@
 package com.yasincidem.moviedb.util
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -12,8 +10,8 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun FadingBox(
-    enter: EnterTransition = fadeIn(animationSpec = tween(550)),
-    exit: ExitTransition = fadeOut(animationSpec = tween(550)),
+    enterDuration: Int = 550,
+    exitDuration: Int = 550,
     content: @Composable () -> Unit
 ) {
     val state = remember {
@@ -25,7 +23,7 @@ fun FadingBox(
 
     AnimatedVisibility(
         visibleState = state,
-        enter = enter,
-        exit = exit
+        enter = fadeIn(animationSpec = tween(enterDuration)),
+        exit = fadeOut(animationSpec = tween(exitDuration))
     ) { content() }
 }

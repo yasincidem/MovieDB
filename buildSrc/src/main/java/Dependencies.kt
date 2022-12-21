@@ -9,6 +9,7 @@ object Dependencies {
         const val ui = "androidx.compose.ui:ui:${Versions.Compose.core}"
         const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:1.1.0-alpha03"
         const val material3 = "androidx.compose.material3:material3:1.1.0-alpha03"
+        const val lifecycle = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
     }
 
     object Network {

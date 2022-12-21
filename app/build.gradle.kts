@@ -66,6 +66,7 @@ dependencies {
     implementation(Dependencies.Core.lifecyle)
     implementation(Dependencies.Compose.activity)
     implementation(Dependencies.Compose.ui)
+    implementation(Dependencies.Compose.lifecycle)
     implementation(Dependencies.Compose.uiToolingPreview)
     implementation(Dependencies.Compose.material3)
     implementation(Dependencies.Util.splashscreen)

@@ -1,12 +1,13 @@
 package com.yasincidem.moviedb.feature.moviedetail.data.remote
 
-import com.yasincidem.moviedb.feature.trending.domain.model.MediaRequestType
-import com.yasincidem.moviedb.feature.trending.domain.model.TimeWindow
+import com.yasincidem.moviedb.feature.moviedetail.data.remote.model.MovieDetailDto
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface MovieDetailService {
 
-
+    @GET("movie/{movieId}")
+    suspend fun fetchMovieDetail(
+        @Path("movieId") movieId: Long
+    ): MovieDetailDto
 }

@@ -158,7 +158,6 @@ fun MainScreen(
                                 }
 
                                 is Person -> {
-
                                     navigator.navigate(
                                         PersonDetailScreenDestination(
                                             media.id
