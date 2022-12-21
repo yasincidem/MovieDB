@@ -149,7 +149,7 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             state = listState
         ) {
-            items(trendingList, key = { item -> item.id }) { media: IMedia? ->
+            items(trendingList) { media: IMedia? ->
                 media ?: return@items
                 FadingBox {
                     Card(
