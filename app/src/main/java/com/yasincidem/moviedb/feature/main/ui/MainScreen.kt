@@ -143,7 +143,8 @@ fun MainScreen(
             contentPadding = PaddingValues(
                 start = 16.dp,
                 end = 16.dp,
-                top = padding.calculateTopPadding()
+                top = padding.calculateTopPadding(),
+                bottom = padding.calculateBottomPadding()
             ),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             state = listState
@@ -159,7 +160,6 @@ fun MainScreen(
                                     navigator.navigate(
                                         MovieDetailScreenDestination(
                                             media.id,
-                                            media.poster_path,
                                             media.backdrop_path
                                         )
                                     )

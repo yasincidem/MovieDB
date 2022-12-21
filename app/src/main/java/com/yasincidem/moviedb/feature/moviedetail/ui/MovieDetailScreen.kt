@@ -54,7 +54,6 @@ import com.yasincidem.moviedb.util.FadingBox
 @Composable
 fun MovieDetailScreen(
     id: Long,
-    poster_path: String,
     backdrop_path: String,
     navigator: DestinationsNavigator,
     viewModel: MovieDetailViewModel = hiltViewModel(),
