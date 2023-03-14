@@ -13,25 +13,29 @@ object Dependencies {
     }
 
     object Network {
-        const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
-        const val retrofitMoshi = "com.squareup.retrofit2:converter-moshi:2.9.0"
+        const varsion = "2.9.0"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val retrofitMoshi = "com.squareup.retrofit2:converter-moshi:$version"
     }
 
     object DI {
-        const val hiltAndroid = "com.google.dagger:hilt-android:2.44"
-        const val hiltCompilerKapt = "com.google.dagger:hilt-compiler:2.44"
+        const varsion = "2.44"
+        const val hiltAndroid = "com.google.dagger:hilt-android:$version"
+        const val hiltCompilerKapt = "com.google.dagger:hilt-compiler:$version"
         const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
     }
 
     object Navigation {
-        const val destinationCore = "io.github.raamcosta.compose-destinations:core:1.7.27-beta"
+        const varsion = "1.7.27-beta"
+        const val destinationCore = "io.github.raamcosta.compose-destinations:core:$version"
         const val destinationAnimCore =
-            "io.github.raamcosta.compose-destinations:animations-core:1.7.27-beta"
-        const val destinationKSP = "io.github.raamcosta.compose-destinations:ksp:1.7.27-beta"
+            "io.github.raamcosta.compose-destinations:animations-core:$version"
+        const val destinationKSP = "io.github.raamcosta.compose-destinations:ksp:$version"
     }
 
     object Accompanist {
-        const val systemUiContoller = "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
+        const version = "0.28.0"
+        const val systemUiContoller = "com.google.accompanist:accompanist-systemuicontroller:$version"
     }
 
     object Pagination {
